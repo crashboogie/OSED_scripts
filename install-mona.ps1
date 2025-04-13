@@ -1,6 +1,6 @@
 # Define the share path. Note the use of single quotes and a doubled trailing backslash to ensure the literal backslash is preserved.
 $share_path = '\\tsclient\mona-share\\'
-$install_dir = "C:\Users\Offsec\Desktop\install-mona"
+$install_dir = "C:\Users\Administrator\Desktop\install-mona"
 
 echo "[+] Creating installation directory: $install_dir"
 mkdir "$install_dir"
@@ -16,12 +16,17 @@ Catch {
     Write-Error "[-] Failed to start Windows Modules Installer: $_"
 }
 
+# Copy the WinDBG theme to the install dir
+echo "[+] Copying the Windbg workspace file"
+copy "$share_path\dark.wew" "$install_dir"
+Start-Sleep -Seconds 5
+
 # Install old C++ runtime
 echo "[+] Installing old C++ runtime"
 copy "$share_path\vcredist_x86.exe" "$install_dir"
 cd "$install_dir"
 .\vcredist_x86.exe 
-Start-Sleep -Seconds 10
+Start-Sleep -Seconds 60
 
 echo "[+] Backing up old pykd files"
 move "C:\Program Files\Windows Kits\10\Debuggers\x86\winext\pykd.pyd" "C:\Program Files\Windows Kits\10\Debuggers\x86\winext\pykd.pyd.bak"
