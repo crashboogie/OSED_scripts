@@ -55,7 +55,7 @@ if (!(Test-Path "$share_path\vcredist_x86.exe")) {
     Write-Host "[-] ERROR: vcredist_x86.exe not found in $share_path"
 } else {
     Copy-Item "$share_path\vcredist_x86.exe" "$install_dir"
-    & "$install_dir\vcredist_x86.exe /quiet /norestart"
+    & "$install_dir\vcredist_x86.exe" /quiet /norestart
     Write-Host "[+] vcredist_x86.exe launched, sleeping to allow install..."
     Start-Sleep -Seconds 30
 }
